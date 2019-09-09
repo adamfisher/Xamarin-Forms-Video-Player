@@ -174,8 +174,9 @@ namespace Octane.Xamarin.Forms.VideoPlayer.iOS.Renderers
                 {
                     var currentTime = player.CurrentTime.Seconds;
                     var timeScale = player.CurrentItem.Duration.TimeScale;
-                    Log.Info($"SEEK: CurrentTime={currentTime}; TimeScale={timeScale}; NewTime={time}");
-                    player.Seek(CMTime.FromSeconds(time / 1000d, timeScale));
+                    var newTime = time / 1000d;
+                    Log.Info($"SEEK: CurrentTime={currentTime}; TimeScale={timeScale}; NewTime={newTime}");
+                    player.Seek(CMTime.FromSeconds(newTime, timeScale), CMTime.Zero, CMTime.Zero);
                 }
             }
         }
@@ -190,7 +191,7 @@ namespace Octane.Xamarin.Forms.VideoPlayer.iOS.Renderers
         {
             var player = _playerControl?.Player;
             return player != null && (player.CurrentItem.CanStepBackward
-                   || player.CurrentItem.CanStepForward) && (time >= 0 && time <= Element.CurrentTime.Milliseconds);
+                   || player.CurrentItem.CanStepForward) && (time >= 0 && time <= (_playerControl.Player.CurrentItem.Duration.Seconds * 1000));
         }
 
         #endregion

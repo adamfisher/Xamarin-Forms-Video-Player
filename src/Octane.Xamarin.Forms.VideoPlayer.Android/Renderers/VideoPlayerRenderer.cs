@@ -74,7 +74,7 @@ namespace Octane.Xamarin.Forms.VideoPlayer.Android.Renderers
         {
             var control = Control;
             return control != null && (control.Status == MediaPlayerStatus.Prepared
-                || control.Status == MediaPlayerStatus.Paused);
+                || control.Status == MediaPlayerStatus.Paused || control.Status == MediaPlayerStatus.PlaybackCompleted);
         }
 
         /// <summary>
