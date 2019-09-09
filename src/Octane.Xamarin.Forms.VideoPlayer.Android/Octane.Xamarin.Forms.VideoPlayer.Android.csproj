@@ -18,6 +18,7 @@
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ReleaseVersion>0.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -140,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Octane.Xamarin.Forms.VideoPlayer\Octane.Xamarin.Forms.VideoPlayer.csproj">
-      <Project>{6f36403b-c460-4a84-9c7a-e90f689576bd}</Project>
+      <Project>{353C7A43-D286-4F96-A221-363157CF20BC}</Project>
       <Name>Octane.Xamarin.Forms.VideoPlayer</Name>
     </ProjectReference>
   </ItemGroup>

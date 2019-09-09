@@ -54,6 +54,20 @@
 		/// <c>true</c> if this instance can stop; otherwise, <c>false</c>.
 		bool CanSeek(int time);
 
-	    #endregion
-	}
+        /// <summary>
+        /// Seeks to a specific position in milliseconds on the playback stream.
+        /// </summary>
+        /// <param name="time">The time in milliseconds .</param>
+        void SeekTo(int time);
+
+        /// <summary>
+        /// Determines if the video player instance can seek to a given position in milliseconds.
+        /// </summary>
+        /// <param name="time">The time in milliseconds.</param>
+        /// <returns></returns>
+        /// <c>true</c> if this instance can stop; otherwise, <c>false</c>.
+        bool CanSeekTo(int time);
+
+        #endregion
+    }
 }
