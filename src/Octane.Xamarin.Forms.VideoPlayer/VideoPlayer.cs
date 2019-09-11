@@ -464,10 +464,29 @@ namespace Octane.Xamarin.Forms.VideoPlayer
             private set { SetValue(SeekCommandProperty, value); }
         }
 
+        /// <summary>
+		/// The seek command property.
+		/// </summary>
+        public static readonly BindableProperty SeekToCommandProperty = BindableProperty.Create(nameof(SeekToCommand), typeof(ICommand), typeof(VideoPlayer), null);
+
+        /// <summary>
+        /// This command seeks to a specific position in milliseconds.
+        /// </summary>
+        /// <value>
+        /// The seek to command.
+        /// </value>
+        public ICommand SeekToCommand
+        {
+            get { return (ICommand)GetValue(SeekToCommandProperty); }
+            private set { SetValue(SeekToCommandProperty, value); }
+        }
+
+
+
         #endregion
 
         #region Constructors
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoPlayer"/> class.
         /// </summary>
@@ -488,6 +507,10 @@ namespace Octane.Xamarin.Forms.VideoPlayer
             SeekCommand = new Command<string>(
                 (time) => NativeRenderer?.Seek(int.Parse(time)),
                 (time) => NativeRenderer != null && NativeRenderer.CanSeek(int.Parse(time)));
+
+            SeekToCommand = new Command<string>(
+                (time) => NativeRenderer?.SeekTo(int.Parse(time)),
+                (time) => NativeRenderer != null && NativeRenderer.CanSeekTo(int.Parse(time)));
         }
 
         /// <summary>
@@ -545,6 +568,16 @@ namespace Octane.Xamarin.Forms.VideoPlayer
         public void Seek(int time)
         {
             SeekCommand.Execute(time.ToString());
+        }
+
+        /// <summary>
+        /// Seeks to a specific position in milliseconds in the playback stream.
+        /// It may be best to hook into the <c>PlayerStateChanged</c> event to listen for the prepared state before calling this method directly.
+        /// </summary>
+        /// <param name="time">The time in seconds to seek forward or backward.</param>
+        public void SeekTo(int time)
+        {
+            SeekToCommand.Execute(time.ToString());
         }
 
         #endregion

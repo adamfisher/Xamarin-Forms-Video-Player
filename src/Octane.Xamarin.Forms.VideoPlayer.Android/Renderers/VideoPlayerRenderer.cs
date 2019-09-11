@@ -74,7 +74,7 @@ namespace Octane.Xamarin.Forms.VideoPlayer.Android.Renderers
         {
             var control = Control;
             return control != null && (control.Status == MediaPlayerStatus.Prepared
-                || control.Status == MediaPlayerStatus.Paused);
+                || control.Status == MediaPlayerStatus.Paused || control.Status == MediaPlayerStatus.PlaybackCompleted);
         }
 
         /// <summary>
@@ -154,6 +154,39 @@ namespace Octane.Xamarin.Forms.VideoPlayer.Android.Renderers
             var control = Control;
             return control != null && ((time > 0 && Control.CanSeekForward() && (Control.CurrentPosition + time) <= Control.Duration)
                    || (time < 0 && Control.CanSeekBackward() && (Control.CurrentPosition + time) >= 0));
+        }
+
+        /// <summary>
+        /// Seeks to a specific position on the playback stream.
+        /// </summary>
+        /// <param name="time">The time in milliseconds.</param>
+        public virtual void SeekTo(int time)
+        {
+            if (CanSeekTo(time))
+            {
+                var control = Control;
+
+                if (control != null)
+                {
+                    var currentTime = control.CurrentPosition;
+                    Log.Info($"SEEK: CurrentTime={currentTime}; NewTime={time}");
+                    control.SeekTo(time);
+                    Element.SetValue(VideoPlayer.CurrentTimePropertyKey,
+                        TimeSpan.FromMilliseconds(control.CurrentPosition));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines if the video player instance can seek to a given position.
+        /// </summary>
+        /// <param name="time">The time in milliseconds.</param>
+        /// <returns></returns>
+        /// <c>true</c> if this instance can stop; otherwise, <c>false</c>.
+        public virtual bool CanSeekTo(int time)
+        {
+            var control = Control;
+            return control != null && time >= 0 && time <= control.CurrentPosition;
         }
 
         #endregion

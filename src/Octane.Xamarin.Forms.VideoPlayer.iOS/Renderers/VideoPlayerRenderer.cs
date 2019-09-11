@@ -160,6 +160,40 @@ namespace Octane.Xamarin.Forms.VideoPlayer.iOS.Renderers
                    || player.CurrentItem.CanStepForward);
         }
 
+        /// <summary>
+        /// Seeks to a specific position on the playback stream.
+        /// </summary>
+        /// <param name="time">The time in milliseconds.</param>
+        public virtual void SeekTo(int time)
+        {
+            if(CanSeekTo(time))
+            {
+                var player = _playerControl?.Player;
+
+                if (player != null)
+                {
+                    var currentTime = player.CurrentTime.Seconds;
+                    var timeScale = player.CurrentItem.Duration.TimeScale;
+                    var newTime = time / 1000d;
+                    Log.Info($"SEEK: CurrentTime={currentTime}; TimeScale={timeScale}; NewTime={newTime}");
+                    player.Seek(CMTime.FromSeconds(newTime, timeScale), CMTime.Zero, CMTime.Zero);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines if the video player instance can seek to a given position.
+        /// </summary>
+        /// <param name="time">The time in milliseconds.</param>
+        /// <returns></returns>
+        /// <c>true</c> if this instance can stop; otherwise, <c>false</c>.
+        public virtual bool CanSeekTo(int time)
+        {
+            var player = _playerControl?.Player;
+            return player != null && (player.CurrentItem.CanStepBackward
+                   || player.CurrentItem.CanStepForward) && (time >= 0 && time <= (_playerControl.Player.CurrentItem.Duration.Seconds * 1000));
+        }
+
         #endregion
 
         #region ViewRenderer Overrides

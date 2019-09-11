@@ -6,7 +6,6 @@
     <Authors></Authors>
     <Company>Octane Software, LLC</Company>
     <Product>Xamarin.Forms Video Player</Product>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>Octane.Xam.VideoPlayer</PackageId>
     <Copyright>Copyright © 2019</Copyright>
     <PackageLicenseUrl>https://github.com/adamfisher/Xamarin.Forms.VideoPlayer/blob/master/License.md</PackageLicenseUrl>
@@ -14,6 +13,8 @@
     <PackageIconUrl>https://github.com/adamfisher/Xamarin.Forms.VideoPlayer/raw/master/icons/VideoPlayer_128x128.png</PackageIconUrl>
     <PackageTags>xamarin forms xamarin.forms ios android windows phone mobile video portable ui AVPlayer MediaPlayer AVPlayerViewController MediaElement pcl xam.pcl wp8 winphone UWP</PackageTags>
     <Description>A Xamarin Forms control to render the native video player on every platform.</Description>
+    <PackOnBuild>true</PackOnBuild>
+    <ReleaseVersion>0.1.1</ReleaseVersion>
   </PropertyGroup>
 
   <PropertyGroup>

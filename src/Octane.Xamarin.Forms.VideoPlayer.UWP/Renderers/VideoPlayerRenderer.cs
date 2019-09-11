@@ -148,6 +148,10 @@ namespace Octane.Xamarin.Forms.VideoPlayer.UWP.Renderers
                 || (time < 0 && control.CanSeek && (control.Position.Subtract(TimeSpan.FromSeconds(absoluteTime)) >= TimeSpan.Zero)));
         }
 
+		public virtual void SeekTo(int time) { }// TODO: Implement for UWP
+
+		public virtual bool CanSeekTo(int time) => true;
+
         #endregion
 
         #region ViewRenderer Overrides
